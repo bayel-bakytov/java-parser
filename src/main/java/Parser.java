@@ -37,7 +37,14 @@ public class Parser {
             name.setCellValue(n.text());
             i++;
         }
-
+        try {
+            FileOutputStream file = new FileOutputStream("C:\\Users\\user\\Desktop\\java-parser\\l.xlsx");
+            workbook.write(file);
+            file.close();
+            System.out.println("Файл создан");
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден!!!");
+        }
     }
 
 }
