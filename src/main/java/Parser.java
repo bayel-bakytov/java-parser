@@ -12,6 +12,7 @@ import org.jsoup.select.Elements;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Parser {
 
@@ -30,15 +31,24 @@ public class Parser {
 
         XSSFWorkbook workbook = new XSSFWorkbook();
         Sheet sheet = workbook.createSheet("Information");
-        int i = 0;
+        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list2 = new ArrayList<>();
+
         for (Element n : names) {
-            Row row = sheet.createRow(i);
-            Cell name = row.createCell(0);
-            name.setCellValue(n.text());
-            i++;
+            list.add(n.text());
+        }
+        for (Element price : prices) {
+           list2.add(price.text());
+        }
+        for (int i = 0;i < list.size();i++) {
+           Row row = sheet.createRow(i);
+           Cell cell = row.createCell(0);
+           cell.setCellValue(list.get(i));
+           Cell cell1 = row.createCell(1);
+           cell1.setCellValue(list2.get(i));
         }
         try {
-            FileOutputStream file = new FileOutputStream("C:\\Users\\user\\Desktop\\java-parser\\l.xlsx");
+            FileOutputStream file = new FileOutputStream("C:\\Users\\user\\Desktop\\java-parser\\4.xlsx");
             workbook.write(file);
             file.close();
             System.out.println("Файл создан");
